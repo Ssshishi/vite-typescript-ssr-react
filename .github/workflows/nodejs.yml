@@ -1,19 +1,29 @@
-name: Node CI
+# github Action gitHub 的 持续集成服务
+# 本文件为配置文件 自动发布一个应用 到 github Pages
 
-on: [push, pull_request]
-
-# ubuntu Linux操作系统
 
 # yml 格式
 # 大小写敏感
 # 使用缩进表示层级关系
 # 缩进时不允许使用Tab键，只允许使用空格。
 # 缩进的空格数目不重要，只要相同层级的元素左侧对齐即可
+
+
+# name字段是 workflow 的名称
+name: Node CI
+
+# on字段指定触发 workflow 的条件
+on: [push, pull_request]
+
+# jobs字段，表示要执行的一项或多项任务
 jobs:
   build-node:
+    # runs-on字段指定运行所需要的虚拟机环境 
     runs-on: ubuntu-latest
 
+    # steps字段指定每个 Job 的运行步骤
     steps:
+      # uses  
       - uses: actions/checkout@v1
       - name: Use Node.js 15.x
         uses: actions/setup-node@v1
@@ -21,6 +31,7 @@ jobs:
           node-version: 15.x
       - name: Get npm cache directory
         id: npm-cache
+        # run：该步骤运行的命令或者 action
         run: |
           echo "::set-output name=dir::$(npm config get cache)"
       - uses: actions/cache@v1
@@ -33,5 +44,6 @@ jobs:
         run: |
           yarn install --frozen-lockfile
           yarn run build
+        # env：该步骤所需的环境变量
         env:
           CI: true
