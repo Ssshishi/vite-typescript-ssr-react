@@ -18,6 +18,7 @@ const Main = () => {
           className="focus:ring-indigo-500 focus:border-indigo-500 block w-full text-2xl border-gray-300 rounded-md p-2"
         />
       </div>
+      
       <Footer />
     </div>
   );
